@@ -8,6 +8,7 @@
 import Foundation
 
 struct WeatherModel {
+    
     var city = ""
     var days = 0
     

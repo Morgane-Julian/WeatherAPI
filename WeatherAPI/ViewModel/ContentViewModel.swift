@@ -8,11 +8,14 @@
 import Foundation
 
 final class ContentViewModel: ObservableObject {
-    
+    @Published var items = [Item]()
+    @Published var snappedItem = 0.0
+    @Published var draggingItem = 0.0
     @Published var weather = WeatherModel()
     let weatherService = WeatherService()
-    let days = 15
+    let days = 7
     
+    //MARK: - Weather functions
     func getWeather(city: String) {
         weatherService.getWeather(city: city, days: self.days) { weatherResult in
             DispatchQueue.main.async {
@@ -26,12 +29,29 @@ final class ContentViewModel: ObservableObject {
                     self.weather.temperature = weatherResponse.current.tempC
                     self.weather.text = weatherResponse.current.condition.text
                     self.weather.visKM = weatherResponse.current.visKM
-                    print("Super on a reussi")
-            case .failure(let errorMessage):
-                // afficher une popup d'erreur à l'utilisateur
-                    print("NOPE")
+            case .failure:
+                break
                 }
             }
         }
+    }
+    
+    //MARK: - Carousel functions
+    init() {
+           items = []
+           for i in 0...7 {
+               let new = Item(id: i, weatherText: weather.text, image: weather.icon, temperature: weather.temperature)
+               items.append(new)
+           }
+       }
+    
+    func distance(_ item: Int) -> Double {
+        let double = (draggingItem - Double(item)).remainder(dividingBy: Double(self.items.count))
+        return double
+    }
+    
+    func myXOffset(_ item: Int) -> Double {
+        let angle = Double.pi * 2 / Double(self.items.count) * distance(item)
+        return sin(angle) * 200
     }
 }
