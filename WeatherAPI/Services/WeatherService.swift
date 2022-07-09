@@ -27,14 +27,17 @@ final class WeatherService {
             
             guard let data = data else {
                 callback(.failure(.noData))
+                print("No data from API")
                 return
             }
             guard let httpResponse = response as? HTTPURLResponse, (200...209).contains(httpResponse.statusCode) else {
                 callback(.failure(.invalidResponse))
+                print("Invalid response from API")
                 return
             }
             guard let dataDecoded = try? JSONDecoder().decode(CurrentWeatherResponse.self, from: data) else {
                 callback(.failure(.undecodableData))
+                print("Undecodable data from API")
                 return
             }
             callback(.success(dataDecoded))
