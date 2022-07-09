@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Image("background")
+            Image(self.contentViewModel.weatherImageWithIcon(icon: self.contentViewModel.code).rawValue)
                 .resizable()
             VStack {
                 //MARK: - City, temperature and text

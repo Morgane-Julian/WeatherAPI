@@ -19,6 +19,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private var city = ""
     private let days = 7
     var items = [Forecastday]()
+    @Published var code = Int()
     
     //MARK: - Weather functions
     func getWeather(city: String) {
@@ -36,6 +37,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                     self.weather.visKM = weatherResponse.current.visKM
                     self.weather.pression = weatherResponse.current.pressureMB
                     self.weather.icon = weatherResponse.current.condition.icon.rawValue
+                    self.code = weatherResponse.current.condition.code
                     
                     for item in weatherResponse.forecast.forecastday {
                         self.items.append(item)
@@ -103,4 +105,22 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             //TODO: handle the error
         }
     
+    
+    //MARK: - Utils functions
+    func weatherImageWithIcon(icon: Int) -> WeatherImage {
+        if weather.iconFog.contains(icon) {
+            return .fog
+        } else if weather.iconSun.contains(icon) {
+            return .sun
+        } else if weather.iconRain.contains(icon) {
+            return .rain
+        } else if weather.iconSnow.contains(icon) {
+            return .snow
+        } else if weather.iconCloud.contains(icon) {
+            return .cloud
+        } else if weather.iconCloudAndRain.contains(icon) {
+            return .cloudSun
+        }
+        return .cloudSun
+    }
 }
