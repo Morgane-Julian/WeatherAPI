@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import CoreLocation
 
 final class ContentViewModel: ObservableObject {
-    @Published var snappedItem = 0.0
-    @Published var draggingItem = 0.0
+    
     @Published var weatherDays = [WeatherDay]()
     @Published var weather = WeatherModel()
-    let weatherService = WeatherService()
-    let days = 7
+   
+    private let weatherService = WeatherService()
+    private let days = 7
     var items = [Forecastday]()
     
     //MARK: - Weather functions
@@ -44,4 +45,9 @@ final class ContentViewModel: ObservableObject {
             }
         }
     }
+    
+    //MARK: User Location
+    
+    
+    
 }

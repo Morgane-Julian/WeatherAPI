@@ -11,17 +11,15 @@ struct ContentView: View {
     
     @StateObject var contentViewModel: ContentViewModel
     
-    
     var body: some View {
         ZStack {
-                Image("background")
+            Image("background")
                 .resizable()
             VStack {
-                
                 //MARK: - City, temperature and text
                 VStack(alignment: .center) {
                     Text("Tokyo")
-                        .padding()
+                        .padding(5)
                         .font(.largeTitle)
                         .dynamicTypeSize(.large)
                     
@@ -34,7 +32,6 @@ struct ContentView: View {
                         .frame(width: 100, height: 50, alignment: .center)
                         .background(Capsule().fill(Color.gray).shadow(radius: 10).opacity(0.5))
                 }
-                .padding()
                 
                 //MARK: - Humidity, Pression and wind
                 HStack {
@@ -54,8 +51,7 @@ struct ContentView: View {
                         Text("13%")
                     }
                     .padding()
-                }
-                .padding()
+                }.padding()
                 
                 //MARK: - Forecast Days
                 VStack {
