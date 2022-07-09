@@ -19,6 +19,7 @@ struct WeatherModel {
     var visKM = 0.0
     var pression = 0.0
     var weekDay = ""
+    var icon = ""
     
     var text : WeatherText = .clear
     
@@ -77,4 +78,13 @@ struct WeatherDayDetails {
     var textCondition: String
     var iconCondition: String
     var codeCondition: Int
+}
+
+enum WeatherImage {
+    case sun
+    case cloudSun
+    case cloud
+    case rain
+    case snow
+    case fog
 }

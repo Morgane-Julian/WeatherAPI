@@ -60,7 +60,7 @@ struct ContentView: View {
                             Spacer()
                             Text(day.date)
                             Spacer()
-                            Image("sun")
+                            Image(String(day.day.codeCondition))
                                 .resizable()
                                 .frame(width: 30, height: 30, alignment: .center)
                             Spacer()
@@ -74,6 +74,9 @@ struct ContentView: View {
                         Divider()
                     }
                 }
+                Text("Powered by WeatherApi.com")
+                    .padding()
+                    .font(.footnote)
             }
         }.onAppear {
             Task {

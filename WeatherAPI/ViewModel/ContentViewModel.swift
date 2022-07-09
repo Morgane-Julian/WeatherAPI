@@ -35,6 +35,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                     self.weather.text = weatherResponse.current.condition.text
                     self.weather.visKM = weatherResponse.current.visKM
                     self.weather.pression = weatherResponse.current.pressureMB
+                    self.weather.icon = weatherResponse.current.condition.icon.rawValue
                     
                     for item in weatherResponse.forecast.forecastday {
                         self.items.append(item)
