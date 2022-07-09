@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		914EDB3D2878CC5E001E0EA6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914EDB3C2878CC5E001E0EA6 /* Item.swift */; };
 		91B00CD328781CB300A168DC /* WeatherAPIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B00CD228781CB300A168DC /* WeatherAPIApp.swift */; };
 		91B00CD528781CB300A168DC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B00CD428781CB300A168DC /* ContentView.swift */; };
 		91B00CD728781CB400A168DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91B00CD628781CB400A168DC /* Assets.xcassets */; };
@@ -32,7 +31,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		914EDB3C2878CC5E001E0EA6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		91B00CCF28781CB300A168DC /* WeatherAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91B00CD228781CB300A168DC /* WeatherAPIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIApp.swift; sourceTree = "<group>"; };
 		91B00CD428781CB300A168DC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 			isa = PBXGroup;
 			children = (
 				91B00D0D28782AC800A168DC /* WeatherModel.swift */,
-				914EDB3C2878CC5E001E0EA6 /* Item.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -267,7 +264,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				91B00D1128782C5400A168DC /* ContentViewModel.swift in Sources */,
-				914EDB3D2878CC5E001E0EA6 /* Item.swift in Sources */,
 				91B00D082878227700A168DC /* WeatherService.swift in Sources */,
 				91B00D0228781F1500A168DC /* ApiUtils.swift in Sources */,
 				91B00CD528781CB300A168DC /* ContentView.swift in Sources */,

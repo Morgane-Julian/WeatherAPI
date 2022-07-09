@@ -17,15 +17,15 @@ struct ContentView: View {
                 
                 //MARK: - City, temperature and text
                 VStack(alignment: .leading) {
-                    Text("San Fransisco")
+                    Text(contentViewModel.weather.city)
                         .padding()
                         .font(.largeTitle)
                         .dynamicTypeSize(.large)
                     
-                    Text("18°")
+                    Text("\(contentViewModel.weather.temperature)°")
                         .font(.largeTitle)
                         .bold()
-                    Text("Cloudy")
+                    Text(contentViewModel.weather.text.rawValue)
                         .foregroundColor(.black)
                         .frame(width: 100, height: 50, alignment: .center)
                         .background(Capsule().fill(Color.gray).shadow(radius: 10).opacity(0.5))
@@ -54,46 +54,38 @@ struct ContentView: View {
                 .padding()
                 
                 //MARK: - Forecast Carousel
-//                ZStack {
-//                    ForEach(contentViewModel.items) { item in
-//                        ZStack {
-//                            RoundedRectangle(cornerRadius: 18)
-//                                .fill(.gray)
-//                            Text(item.title)
-//                                .padding()
-//                        }
-//                        .frame(width: 200, height: 200)
-//
-//                        .scaleEffect(1.0 - abs(contentViewModel.distance(item.id)) * 0.2 )
-//                        .opacity(1.0 - abs(contentViewModel.distance(item.id)) * 0.3 )
-//                        .offset(x: contentViewModel.myXOffset(item.id), y: 0)
-//                        .zIndex(1.0 - abs(contentViewModel.distance(item.id)) * 0.1)
-//                    }
-//                }
-//                .gesture(
-//                    DragGesture()
-//                        .onChanged { value in
-//                            contentViewModel.draggingItem = contentViewModel.snappedItem + value.translation.width / 100
-//                        }
-//                        .onEnded { value in
-//                            withAnimation {
-//                                contentViewModel.draggingItem = contentViewModel.snappedItem + value.predictedEndTranslation.width / 100
-//                                contentViewModel.draggingItem = round(contentViewModel.draggingItem).remainder(dividingBy: Double(contentViewModel.items.count))
-//                                contentViewModel.snappedItem = contentViewModel.draggingItem
-//                            }
-//                        })
+                TabView {
+                    ForEach(contentViewModel.weatherDays, id: \.id) { item in
+                        Image(item.day.iconCondition)
+                            .resizable()
+                            .scaledToFill()
+                        Text(item.day.textCondition)
+                        Text("\(item.day.maxtempC)°")
+                    }
+                }
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            contentViewModel.draggingItem = contentViewModel.snappedItem + value.translation.width / 100
+                        }
+                        .onEnded { value in
+                            withAnimation {
+                                contentViewModel.draggingItem = contentViewModel.snappedItem + value.predictedEndTranslation.width / 100
+                                contentViewModel.draggingItem = round(contentViewModel.draggingItem).remainder(dividingBy: Double(contentViewModel.items.count))
+                                contentViewModel.snappedItem = contentViewModel.draggingItem
+                            }
+                        })
+            }
+            .onAppear {
+                Task {
+                    contentViewModel.getWeather(city: "London")
+                }
             }
         .background(
             Image("")
                 .resizable()
-        )
-        .onAppear {
-            Task {
-                contentViewModel.getWeather(city: "London")
-            }
-        }
+        )}
     }
-}
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
