@@ -10,7 +10,7 @@ import Foundation
 final class WeatherService {
     
     private let session: URLSession
-    private let weatherURL = "https://api.weatherapi.com/v1/current.json"
+    private let weatherURL = "https://api.weatherapi.com/v1/forecast.json"
     
     init(session: URLSession = URLSession(configuration: .default)) {
         self.session = session

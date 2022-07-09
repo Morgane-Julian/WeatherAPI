@@ -22,7 +22,7 @@ final class ContentViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch weatherResult {
                 case .success(let weatherResponse):
-
+                    self.items.removeAll()
                     self.weather.cloud = weatherResponse.current.cloud
                     self.weather.feelsLikeC = weatherResponse.current.feelslikeC
                     self.weather.humidity = weatherResponse.current.humidity
@@ -38,21 +38,10 @@ final class ContentViewModel: ObservableObject {
                     self.weatherDays = self.weather.convert(forecastDay: self.items)
                     
             case .failure:
+                    //TODO: Mettre en place des logs
                 break
                 }
             }
         }
-    }
-    
-    //MARK: - Carousel functions
-
-    func distance(_ item: Int) -> Double {
-        let double = (draggingItem - Double(item)).remainder(dividingBy: Double(self.items.count))
-        return double
-    }
-    
-    func myXOffset(_ item: Int) -> Double {
-        let angle = Double.pi * 2 / Double(self.items.count) * distance(item)
-        return sin(angle) * 200
     }
 }

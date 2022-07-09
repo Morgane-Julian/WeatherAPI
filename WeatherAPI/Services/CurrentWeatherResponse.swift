@@ -18,16 +18,18 @@ struct CurrentWeatherResponse: Decodable {
 struct Current: Decodable {
     let lastUpdatedEpoch: Int
     let lastUpdated: String
-    let tempC, tempF, isDay: Int
+    let tempC, tempF: Double
+    let isDay: Int
     let condition: Condition
     let windMph, windKph: Double
     let windDegree: Int
     let windDir: String
-    let pressureMB: Int
+    let pressureMB: Double
     let pressureIn: Double
-    let precipMm, precipIn, humidity, cloud: Int
+    let precipMm, precipIn : Double
+    let humidity, cloud: Int
     let feelslikeC, feelslikeF: Double
-    let visKM, visMiles, uv: Int
+    let visKM, visMiles, uv: Double
     let gustMph, gustKph: Double
 
     enum CodingKeys: String, CodingKey {
@@ -114,11 +116,11 @@ struct Astro: Decodable {
 struct Day: Decodable {
     let maxtempC, maxtempF, mintempC, mintempF: Double
     let avgtempC, avgtempF, maxwindMph, maxwindKph: Double
-    let totalprecipMm, totalprecipIn, avgvisKM, avgvisMiles: Int
-    let avghumidity, dailyWillItRain, dailyChanceOfRain, dailyWillItSnow: Int
-    let dailyChanceOfSnow: Int
+    let totalprecipMm, totalprecipIn, avgvisKM, avgvisMiles: Double
+    let avghumidity: Double
+    let dailyWillItRain, dailyChanceOfRain, dailyWillItSnow, dailyChanceOfSnow: Int
     let condition: Condition
-    let uv: Int
+    let uv: Double
 
     enum CodingKeys: String, CodingKey {
         case maxtempC = "maxtemp_c"
@@ -152,15 +154,14 @@ struct Hour: Decodable {
     let windMph, windKph: Double
     let windDegree: Int
     let windDir: String
-    let pressureMB: Int
-    let pressureIn: Double
-    let precipMm, precipIn, humidity, cloud: Int
+    let pressureMB, precipMm, precipIn, pressureIn: Double
+    let humidity, cloud: Int
     let feelslikeC, feelslikeF, windchillC, windchillF: Double
     let heatindexC, heatindexF, dewpointC, dewpointF: Double
     let willItRain, chanceOfRain, willItSnow, chanceOfSnow: Int
-    let visKM, visMiles: Int
+    let visKM, visMiles: Double
     let gustMph, gustKph: Double
-    let uv: Int
+    let uv: Double
 
     enum CodingKeys: String, CodingKey {
         case timeEpoch = "time_epoch"

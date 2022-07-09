@@ -13,19 +13,23 @@ struct ContentView: View {
     
     
     var body: some View {
+        ZStack {
+                Image("background")
+                .resizable()
             VStack {
                 
                 //MARK: - City, temperature and text
-                VStack(alignment: .leading) {
-                    Text(contentViewModel.weather.city)
+                VStack(alignment: .center) {
+                    Text("Tokyo")
                         .padding()
                         .font(.largeTitle)
                         .dynamicTypeSize(.large)
                     
-                    Text("\(contentViewModel.weather.temperature)°")
+                    Text("23°")
                         .font(.largeTitle)
                         .bold()
-                    Text(contentViewModel.weather.text.rawValue)
+                    
+                    Text("Nuageux")
                         .foregroundColor(.black)
                         .frame(width: 100, height: 50, alignment: .center)
                         .background(Capsule().fill(Color.gray).shadow(radius: 10).opacity(0.5))
@@ -53,39 +57,35 @@ struct ContentView: View {
                 }
                 .padding()
                 
-                //MARK: - Forecast Carousel
-                TabView {
-                    ForEach(contentViewModel.weatherDays, id: \.id) { item in
-                        Image(item.day.iconCondition)
-                            .resizable()
-                            .scaledToFill()
-                        Text(item.day.textCondition)
-                        Text("\(item.day.maxtempC)°")
+                //MARK: - Forecast Days
+                VStack {
+                    ForEach(contentViewModel.weatherDays, id: \.id) { day in
+                        HStack {
+                            Spacer()
+                            Text("Monday")
+                            Spacer()
+                            Image("sun")
+                                .resizable()
+                                .frame(width: 30, height: 30, alignment: .center)
+                            Spacer()
+                            Text("25°")
+                                .bold()
+                            Spacer()
+                            Text("8°")
+                                .bold()
+                            Spacer()
+                        }
+                        Divider()
                     }
                 }
-                .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            contentViewModel.draggingItem = contentViewModel.snappedItem + value.translation.width / 100
-                        }
-                        .onEnded { value in
-                            withAnimation {
-                                contentViewModel.draggingItem = contentViewModel.snappedItem + value.predictedEndTranslation.width / 100
-                                contentViewModel.draggingItem = round(contentViewModel.draggingItem).remainder(dividingBy: Double(contentViewModel.items.count))
-                                contentViewModel.snappedItem = contentViewModel.draggingItem
-                            }
-                        })
             }
-            .onAppear {
-                Task {
-                    contentViewModel.getWeather(city: "London")
-                }
+        }.onAppear {
+            Task {
+                contentViewModel.getWeather(city: "London")
             }
-        .background(
-            Image("")
-                .resizable()
-        )}
+        }
     }
+}
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
@@ -94,7 +94,6 @@ struct ContentView_Previews: PreviewProvider {
             ContentView(contentViewModel: ContentViewModel())
                 .previewDevice(.init(rawValue: $0))
                 .previewDisplayName($0)
-            //                .preferredColorScheme(.dark)
         }
     }
 }

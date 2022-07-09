@@ -12,11 +12,11 @@ struct WeatherModel {
     var city = "Tokyo"
     var days = 7
     
-    var temperature = 0
+    var temperature = 0.0
     var humidity = 0
     var cloud = 0
     var feelsLikeC = 0.0
-    var visKM = 0
+    var visKM = 0.0
     
     var text : WeatherText = .clear
     var icon: Icon = .cdnWeatherapiCOMWeather64X64Day113PNG
