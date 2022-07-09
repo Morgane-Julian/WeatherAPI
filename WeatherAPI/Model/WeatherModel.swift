@@ -21,7 +21,6 @@ struct WeatherModel {
     var weekDay = ""
     
     var text : WeatherText = .clear
-    var icon: Icon = .cdnWeatherapiCOMWeather64X64Day113PNG
     
     var weatherDays = [WeatherDay]()
     

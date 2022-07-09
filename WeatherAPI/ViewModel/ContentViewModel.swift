@@ -31,7 +31,6 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                     self.weather.cloud = weatherResponse.current.cloud
                     self.weather.feelsLikeC = weatherResponse.current.feelslikeC
                     self.weather.humidity = weatherResponse.current.humidity
-                    self.weather.icon = weatherResponse.current.condition.icon
                     self.weather.temperature = weatherResponse.current.tempC
                     self.weather.text = weatherResponse.current.condition.text
                     self.weather.visKM = weatherResponse.current.visKM
