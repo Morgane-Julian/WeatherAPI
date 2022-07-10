@@ -16,32 +16,23 @@ final class WeatherService {
         self.session = session
     }
     
-    func getWeather(city: String, days: Int, callback: @escaping (Result<CurrentWeatherResponse, NetworkError>) -> Void) {
+    func getWeather(city: String, days: Int) async throws -> CurrentWeatherResponse {
         
-        guard var urlComponents = URLComponents(string: "\(weatherURL)") else { return }
+        guard var urlComponents = URLComponents(string: "\(weatherURL)") else { throw NetworkError.badURLConversion }
         urlComponents.queryItems = [URLQueryItem(name: "key", value: ApiUtils.weatherKey), URLQueryItem(name: "q", value: city), URLQueryItem(name: "days", value: String(days))]
+        guard let url: URL = urlComponents.url else { throw NetworkError.badURLConversion }
         
-        guard let url: URL = urlComponents.url else { return }
+        let request = URLRequest.init(url: url)
         
-        let dataTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
-            
-            guard let data = data else {
-                callback(.failure(.noData))
-                print("No data from API")
-                return
-            }
-            guard let httpResponse = response as? HTTPURLResponse, (200...209).contains(httpResponse.statusCode) else {
-                callback(.failure(.invalidResponse))
-                print("Invalid response from API")
-                return
-            }
-            guard let dataDecoded = try? JSONDecoder().decode(CurrentWeatherResponse.self, from: data) else {
-                callback(.failure(.undecodableData))
-                print("Undecodable data from API")
-                return
-            }
-            callback(.success(dataDecoded))
-        })
-        dataTask.resume()
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, (200...209).contains(httpResponse.statusCode) else {
+            throw NetworkError.invalidResponse
+        }
+        
+        guard let dataDecoded = try? JSONDecoder().decode(CurrentWeatherResponse.self, from: data) else {
+            throw NetworkError.undecodableData
+        }
+        return dataDecoded
     }
 }

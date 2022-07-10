@@ -80,7 +80,7 @@ struct ContentView: View {
             }
         }.onAppear {
             Task {
-                self.contentViewModel.getLocationAndCallApiWeather()
+                try await self.contentViewModel.getLocationAndCallApiWeather()
                     }
                     
                 }
